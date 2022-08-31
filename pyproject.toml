@@ -1,0 +1,31 @@
+[tool.poetry]
+name = "pyssl"
+version = "1.0.1"
+description = "Implements SSLCOMMERZ payment gateway in python based web apps."
+authors = ["Piecoders IT Solutions <piecodersit@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/johnfraney/flake8-markdown"
+repository = "https://github.com/johnfraney/flake8-markdown"
+keywords = ["flake8", "markdown", "lint"]
+classifiers = [
+    "Environment :: Console",
+    "Framework :: Flake8",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development :: Documentation",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Software Development :: Quality Assurance",
+]
+include = [
+    "LICENSE",
+]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
