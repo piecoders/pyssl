@@ -1,27 +1,22 @@
 [tool.poetry]
-name = "pyssl"
-version = "1.0.1"
+name = "pysslcmz"
+version = "1.1.2"
 description = "Implements SSLCOMMERZ payment gateway in python based web apps."
 authors = ["Piecoders IT Solutions <piecodersit@gmail.com>"]
 license = "MIT"
 readme = "README.md"
-homepage = "https://github.com/johnfraney/flake8-markdown"
-repository = "https://github.com/johnfraney/flake8-markdown"
-keywords = ["flake8", "markdown", "lint"]
+homepage = "https://github.com/piecoders/pyssl"
+repository = "https://github.com/piecoders/pyssl"
+keywords = ["SSLCommerz", "sslcommerz", "SSLCOMMERZ", "bkash", "nagod", "upai", "rocket"]
 classifiers = [
-    "Environment :: Console",
-    "Framework :: Flake8",
     "Operating System :: OS Independent",
-    "Topic :: Software Development :: Documentation",
-    "Topic :: Software Development :: Libraries :: Python Modules",
-    "Topic :: Software Development :: Quality Assurance",
 ]
 include = [
     "LICENSE",
 ]
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = "^3.8"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"

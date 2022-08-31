@@ -4,11 +4,11 @@ Provides a python module to implement payment gateway in python based web apps.
 ## Installation
 Via PIP
 ```bash
-pip install sslcommerz-python
+pip install pysslcmz
 ```
 ## Projected use
 ```python
-from sslcommerz_python.payment import SSLCSession
+from pysslcmz.payment import SSLCSession
 from decimal import Decimal
 
 mypayment = SSLCSession(sslc_is_sandbox=True, sslc_store_id='your_sslc_store_id', sslc_store_pass='your_sslc_store_passcode')
