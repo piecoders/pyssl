@@ -63,9 +63,10 @@ jobs:
       run: |
         current_version=$(poetry version)
         previous_version=$(cat pyproject.toml | grep ^version | sed -E 's/.*=//')
-
         if [[ $current_version != $previous_version ]]; then
           echo "Version number has changed"
+        else
+          echo "Version number hasn't changed"
         fi
 
 
