@@ -62,8 +62,8 @@ jobs:
     - name: Check version changes
       id: version_check
       run: |
-        git fetch origin +refs/heads/main:refs/remotes/origin/main
-        CHANGED_FILES=$(git diff-tree --no-commit-id --name-only -r ${{ github.sha }}^ ${{ github.sha }})
+        git fetch --no-tags --depth=1 origin ${{ github.sha }}
+        CHANGED_FILES=$(git diff-tree --no-commit-id --name-only -r ${{ github.sha }}~ ${{ github.sha }})
         if [[ "pyproject.toml" =~ $CHANGED_FILES ]]; then
           CHANGED_VERSION=$(poetry version | awk '{print $2}')
           if [[ "$CHANGED_VERSION" != "$(poetry version | awk '{print $2}' -)" ]]; then
