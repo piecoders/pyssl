@@ -66,8 +66,7 @@ jobs:
         if [[ "$current_version" != "$previous_version" ]]; then
           echo "Version changed!"
         fi
-        echo $current_version
-        echo $previous_version
+
 
     - name: Trigger workflow if version changed
       if: steps.version_check.outputs.version_changed == 'true'
