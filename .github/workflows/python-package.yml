@@ -58,13 +58,21 @@ jobs:
       run: |
         curl -sSL https://install.python-poetry.org | python3 -
 
-    - name: Check Current Version
-      run: |
-        poetry version
-
     - uses: actions/checkout@v3
 
     - name: Check Current Version after checkout
       run: |
         poetry version
+        
+    - name: Checkout previous commit
+      run: git checkout ${{ github.event.before }}
+        
+    - name: Check Version after previous commit
+      run: |
+        poetry version
 
+    - uses: actions/checkout@v3
+
+    - name: Check Version again after checkout
+      run: |
+        poetry version
