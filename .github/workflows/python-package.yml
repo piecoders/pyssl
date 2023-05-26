@@ -10,14 +10,13 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
 
+  build:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         python-version: ["3.8", "3.9", "3.10", "3.11"]
-
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python ${{ matrix.python-version }}
@@ -38,3 +37,22 @@ jobs:
     - name: Test with pytest
       run: |
         pytest
+
+  release:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11"]
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Poetry
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 -
+
+      - name: Build and publish package
+        run: poetry version
+
+      - name: Publish release to GitHub
+        uses: elgohr/Github-Release-Action@v4
