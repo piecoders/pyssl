@@ -39,20 +39,15 @@ jobs:
     runs-on: ubuntu-latest
     # needs: build
 
-    env:
-      TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
-      TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
-
-    strategy:
-      fail-fast: false
-      matrix:
-        python-version: ["3.11"]
+    # env:
+    #   TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
+    #   TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
 
     steps:
-    - name: Set up Python ${{ matrix.python-version }}
+    - name: Set up Python 3.11
       uses: actions/setup-python@v4
       with:
-        python-version: ${{ matrix.python-version }}
+        python-version: 3.11
 
     - name: Install Poetry
       run: |
@@ -64,17 +59,18 @@ jobs:
       run: |
         poetry version
         
-    - name: Checkout previous commit
+    - name: Check version changes
+      id: version_check
       run: |
-        git fetch
-        git checkout ${{ github.event.before }}
+        git fetch origin +refs/heads/main:refs/remotes/origin/main
+        CHANGED_FILES=$(git diff-tree --no-commit-id --name-only -r ${{ github.sha }}^ ${{ github.sha }})
+        if [[ "pyproject.toml" =~ $CHANGED_FILES ]]; then
+          CHANGED_VERSION=$(poetry version | awk '{print $2}')
+          if [[ "$CHANGED_VERSION" != "$(poetry version | awk '{print $2}' -)" ]]; then
+            echo "::set-output name=version_changed::true"
+          fi
+        fi
 
-    - name: Check Version after previous commit
-      run: |
-        poetry version
-
-    - uses: actions/checkout@v3
-
-    - name: Check Version again after checkout
-      run: |
-        poetry version
+    - name: Trigger workflow if version changed
+      if: steps.version_check.outputs.version_changed == 'true'
+      run: echo "Version changed. Triggering workflow."
